@@ -23,17 +23,17 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  skincare: "bg-[#fff0f5] text-[#333333]",
-  SkinCare: "bg-[#fff0f5] text-[#333333]",
-  fragrance: "bg-fuchsia-100 text-fuchsia-600",
-  Fragrance: "bg-fuchsia-100 text-fuchsia-600",
-  hair: "bg-purple-100 text-purple-600",
-  Hair: "bg-purple-100 text-purple-600",
-  makeup: "bg-[#fff0f5] text-[#333333]",
-  Makeup: "bg-[#fff0f5] text-[#333333]",
-  beautysupplement: "bg-rose-100 text-rose-600",
-  beautySupplement: "bg-rose-100 text-rose-600",
-  BeautySupplement: "bg-rose-100 text-rose-600",
+  skincare: "bg-rose text-[#333333]",
+  SkinCare: "bg-rose text-[#333333]",
+  fragrance: "bg-sky-100 text-[#333333]",
+  Fragrance: "bg-sky-100 text-[#333333]",
+  hair: "bg-purple-100 text-[#333333]",
+  Hair: "bg-purple-100 text-[#333333]",
+  makeup: "bg-amber-100 text-[#333333]",
+  Makeup: "bg-amber-100 text-[#333333]",
+  beautysupplement: "bg-emerald-50 text-[#333333]",
+  beautySupplement: "bg-emerald-50 text-[#333333]",
+  BeautySupplement: "bg-emerald-50 text-[#333333]",
 };
 
 function formatCategory(cat: string): string {
@@ -72,7 +72,7 @@ export function ProductCard({ product, hideAddToCart }: Props) {
   return (
     <div className="card group animate-fade-in">
       {/* Image */}
-      <Link href={`/shop/${product.slug}`} className="block relative h-48 sm:h-56 bg-gray-50 overflow-hidden">
+      <Link href={`/shop/${product.slug}`} className="block relative w-full aspect-square bg-white overflow-hidden border-b border-[#333333]/5">
         {product.image ? (
           <Image
             src={product.image.url}

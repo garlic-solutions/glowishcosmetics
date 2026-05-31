@@ -34,7 +34,7 @@ export function ProductGallery({ thumbnail, gallery = [], productName }: Props) 
   return (
     <div className="flex flex-col w-full h-full">
       {/* Main Large Image */}
-      <div className="relative w-full h-[320px] sm:h-[400px] md:h-[500px] bg-gray-50 overflow-hidden">
+      <div className="relative w-full aspect-square bg-white overflow-hidden">
         <Image
           src={mainImage.url}
           alt={`${productName} - Image ${activeIndex + 1}`}
@@ -52,7 +52,7 @@ export function ProductGallery({ thumbnail, gallery = [], productName }: Props) 
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-50 overflow-hidden border-2 transition-colors ${
+              className={`relative w-16 h-16 sm:w-20 sm:h-20 bg-white overflow-hidden border-2 transition-colors ${
                 index === activeIndex ? "border-[#835a71]" : "border-transparent hover:border-[#333333]/20"
               }`}
               aria-label={`View image ${index + 1}`}
