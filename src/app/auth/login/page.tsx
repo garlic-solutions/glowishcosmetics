@@ -3,8 +3,9 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { GiFlowerEmblem } from "react-icons/gi";
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiMail, FiLock, FiEye, FiEyeOff, FiGift } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -33,24 +34,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff0f5] flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <GiFlowerEmblem className="text-pink-400 text-3xl" />
-            <span className="font-display font-bold text-2xl text-pink-600">Glowish</span>
+          <Link href="/" className="inline-flex items-center mb-6">
+            <Image 
+              src="/images/logo/logo.webp" 
+              alt="Glowish Logo" 
+              width={160} 
+              height={48} 
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </Link>
-          <h1 className="font-display text-3xl font-bold text-pink-900 mb-1">Welcome back</h1>
-          <p className="text-gray-500 text-sm">Sign in to access your member discounts ✨</p>
+          <h1 className="font-display text-3xl font-normal tracking-wide text-[#333333] mb-1">Welcome back</h1>
+          <p className="text-[#333333]/60 text-sm tracking-wide">Sign in to access your member discounts</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl shadow-sm border border-pink-100 p-8">
+        <div className="bg-white rounded-none p-8">
           {/* Discount callout */}
-          <div className="bg-pink-50 border border-pink-200 rounded-2xl px-4 py-3 mb-6 flex flex-col items-center gap-1 text-center">
-            <span className="text-2xl">🎁</span>
-            <p className="text-sm text-pink-700 font-medium">
+          <div className="bg-pink-50 px-4 py-3 mb-10 flex flex-col items-center gap-1 text-center">
+            <FiGift className="text-[#835a71] text-lg" />
+            <p className="text-sm text-[#835a71] font-normal tracking-wide">
               All the Registered Members enjoy <span className="font-bold">5% off</span> for every orders
             </p>
           </div>
@@ -58,34 +65,34 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Email address</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Email address</label>
               <div className="relative">
-                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300 text-base" />
+                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40 text-base" />
                 <input
                   required
                   type="email"
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Password</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Password</label>
               <div className="relative">
-                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300 text-base" />
+                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40 text-base" />
                 <input
                   required
                   type={showPw ? "text" : "password"}
                   placeholder="••••••••"
                   value={form.password}
                   onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-10 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]"
                 />
-                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-pink-300 hover:text-pink-500">
+                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#333333]/50 hover:text-[#333333] transition-colors">
                   {showPw ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
@@ -102,14 +109,14 @@ export default function LoginPage() {
 
           <p className="text-center text-sm text-gray-500 mt-6">
             Don't have an account?{" "}
-            <Link href="/auth/register" className="text-pink-600 font-semibold hover:underline">
+            <Link href="/auth/register" className="text-[#835a71] font-medium hover:underline">
               Create one free
             </Link>
           </p>
         </div>
 
-        <p className="text-center text-sm text-gray-400 mt-4">
-          <Link href="/shop" className="hover:text-pink-400 transition-colors">
+        <p className="text-center text-sm text-[#333333]/50 mt-4">
+          <Link href="/shop" className="hover:text-[#333333] transition-colors">
             Continue browsing without account →
           </Link>
         </p>

@@ -1,52 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
 :root {
   --font-inter: 'Inter', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
+  --font-bricolage: 'Bricolage Grotesque', sans-serif;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: var(--font-inter);
-  background-color: #fff0f5;
+  background-color: #ffffff;
   color: #1a1a1a;
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-pink-400 hover:bg-pink-500 text-white font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-md hover:shadow-pink-300 hover:shadow-lg active:scale-95;
+    @apply bg-[#333333] hover:bg-[#1a1a1a] text-white font-normal tracking-widest uppercase text-sm px-6 py-3 rounded-none transition-all duration-200 shadow-sm hover:shadow active:scale-95;
   }
 
   .btn-outline {
-    @apply border-2 border-pink-400 text-pink-500 hover:bg-pink-50 font-semibold px-6 py-3 rounded-full transition-all duration-200;
+    @apply border border-[#333333] text-[#333333] hover:bg-gray-50 font-normal tracking-widest uppercase text-sm px-6 py-3 rounded-none transition-all duration-200;
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden;
+    @apply bg-white rounded-none border border-[#333333]/5 hover:shadow-sm transition-shadow duration-200 overflow-hidden;
   }
 
   .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-pink-700 text-center mb-2;
+    @apply font-display text-3xl md:text-4xl font-normal tracking-wide text-[#333333] text-center mb-2;
   }
 
   .section-subtitle {
-    @apply text-pink-400 text-center mb-10 text-lg;
+    @apply text-gray-500 font-light tracking-wide text-center mb-10 text-base md:text-lg;
   }
 
   .tag-badge {
-    @apply text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full font-medium;
+    @apply text-xs bg-white text-[#333333] px-3 py-1 rounded-none font-normal tracking-wider border border-[#333333]/20 uppercase;
   }
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
-.duration-400 { transition-duration: 400ms; }
+.duration-400 {
+  transition-duration: 400ms;
+}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #fff0f5; }
-::-webkit-scrollbar-thumb { background: #ffc0cb; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f8f8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 0px;
+}

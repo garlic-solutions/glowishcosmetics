@@ -9,30 +9,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        theme: {
+          dark: "#333333",
+          light: "#fff0f5",
+          white: "#ffffff",
+          gray: "#f8f8f8",
+        },
+        // Keeping pink for backward compatibility in some components until fully replaced,
+        // but overriding the main gradient usage.
         pink: {
           50:  "#fff0f5",
           100: "#ffe4ee",
           200: "#ffc0cb",
           300: "#ff94b0",
-          400: "#ff69b4",
-          500: "#ff4da6",
-          600: "#e6007a",
-          700: "#b3005f",
-          800: "#800044",
-          900: "#4d0029",
+          400: "#333333", // Replaced pink-400 with dark
+          500: "#333333", // Replaced pink-500 with dark
+          600: "#1a1a1a",
+          700: "#1a1a1a",
+          800: "#111111",
+          900: "#000000",
         },
-        blush: "#fce4ec",
-        rose:  "#f48fb1",
+        blush: "#fff0f5",
+        rose:  "#fce4ec",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-playfair)", "serif"],
+        display: ["var(--font-bricolage)", "sans-serif"],
       },
       backgroundImage: {
         "pink-gradient":
-          "linear-gradient(135deg, #fff0f5 0%, #ffc0cb 50%, #ff69b4 100%)",
+          "linear-gradient(135deg, #fff0f5 0%, #ffffff 50%, #f8f8f8 100%)",
         "hero-gradient":
-          "linear-gradient(135deg, #ffe4ee 0%, #ffc0cb 100%)",
+          "linear-gradient(135deg, #ffffff 0%, #fff0f5 100%)",
       },
       animation: {
         "fade-in":  "fadeIn 0.6s ease-out",
@@ -49,6 +57,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
 export default config;

@@ -16,7 +16,7 @@ export function MarqueeStrip({ dark = false }: { dark?: boolean }) {
 
   return (
     <div
-      className={`overflow-hidden py-4 ${dark ? "bg-pink-500 text-white" : "bg-pink-100 text-pink-700"}`}
+      className={`overflow-hidden py-4 ${dark ? "bg-[#333333] text-white" : "bg-white text-[#333333]"}`}
     >
       <div className="flex gap-0 whitespace-nowrap animate-marquee">
         {text.map((item, i) => (

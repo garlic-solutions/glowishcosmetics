@@ -3,8 +3,9 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { GiFlowerEmblem } from "react-icons/gi";
-import { FiUser, FiMail, FiPhone, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiUser, FiMail, FiPhone, FiLock, FiEye, FiEyeOff, FiGift } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 const COUNTRY_CODES = [
@@ -66,80 +67,84 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff0f5] flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <GiFlowerEmblem className="text-pink-400 text-3xl" />
-            <span className="font-display font-bold text-2xl text-pink-600">Glowish</span>
+          <Link href="/" className="inline-flex items-center mb-6">
+            <Image 
+              src="/images/logo/logo.webp" 
+              alt="Glowish Logo" 
+              width={160} 
+              height={48} 
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </Link>
-          <h1 className="font-display text-3xl font-bold text-pink-900 mb-1">Create account</h1>
-          <p className="text-gray-500 text-sm">Just your name, email & mobile — that's it ✨</p>
+          <h1 className="font-display text-3xl font-normal tracking-wide text-[#333333] mb-1">Create account</h1>
+          <p className="text-[#333333]/60 text-sm tracking-wide">Just your name, email and mobile</p>
         </div>
 
         {/* Perks banner */}
-        <div className="bg-gradient-to-r from-pink-500 to-rose-400 rounded-2xl p-4 mb-6 text-white">
-          <p className="font-bold text-sm mb-1">✦ Member benefits</p>
-          <ul className="text-xs text-pink-100 space-y-0.5">
-            <li>🎁 5% discount on every order</li>
-            <li>📦 Early access to new arrivals</li>
-            <li>💌 Exclusive member offers</li>
-          </ul>
+        <div className="bg-pink-50 px-4 py-3 mb-6 flex flex-col items-center gap-1 text-center">
+          <FiGift className="text-[#835a71] text-lg" />
+          <p className="text-sm text-[#835a71] font-normal tracking-wide">
+            Create an account and enjoy member-only offers on every order
+          </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl shadow-sm border border-pink-100 p-8">
+        <div className="bg-white rounded-none py-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Full Name</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Full Name</label>
               <div className="relative">
-                <FiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
+                <FiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40" />
                 <input required type="text" placeholder="Jane Doe" value={form.name} onChange={set("name")}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
+                  className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]" />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Email address</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Email address</label>
               <div className="relative">
-                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
+                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40" />
                 <input required type="email" placeholder="you@example.com" value={form.email} onChange={set("email")}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
+                  className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]" />
               </div>
             </div>
 
             {/* Mobile */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Mobile number</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Mobile number</label>
               <div className="flex">
                 <select
                   value={mobileCode}
                   onChange={(e) => setMobileCode(e.target.value)}
-                  className="border border-pink-200 border-r-0 rounded-l-xl px-2 py-2.5 text-sm bg-pink-50 text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-300 flex-shrink-0"
+                  className="rounded-none px-2 py-3 text-sm bg-[#efefef] text-[#333333] focus:outline-none focus:bg-[#e9e9e9] flex-shrink-0"
                 >
                   {COUNTRY_CODES.map((c) => (
                     <option key={c.code} value={c.code}>{c.label}</option>
                   ))}
                 </select>
                 <div className="relative flex-1">
-                  <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
+                  <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40" />
                   <input required type="tel" placeholder="71 601 2640" value={form.mobile} onChange={set("mobile")}
-                    className="w-full border border-pink-200 rounded-r-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
+                    className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]" />
                 </div>
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-gray-600 block mb-1">Password</label>
+              <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Password</label>
               <div className="relative">
-                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
+                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#333333]/40" />
                 <input required type={showPw ? "text" : "password"} placeholder="Min. 6 characters" value={form.password} onChange={set("password")}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
-                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-pink-300 hover:text-pink-500">
+                  className="w-full bg-[#f7f7f7] rounded-none pl-10 pr-10 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]" />
+                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#333333]/50 hover:text-[#333333] transition-colors">
                   {showPw ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
@@ -150,14 +155,14 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-gray-500 mt-6 px-2">
             Already have an account?{" "}
-            <Link href="/auth/login" className="text-pink-600 font-semibold hover:underline">Sign in</Link>
+            <Link href="/auth/login" className="text-[#835a71] font-medium hover:underline">Sign in</Link>
           </p>
         </div>
 
-        <p className="text-center text-sm text-gray-400 mt-4">
-          <Link href="/checkout" className="hover:text-pink-400 transition-colors">
+        <p className="text-center text-sm text-[#333333]/50 mt-4">
+          <Link href="/checkout" className="hover:text-[#333333] transition-colors">
             Continue as guest →
           </Link>
         </p>

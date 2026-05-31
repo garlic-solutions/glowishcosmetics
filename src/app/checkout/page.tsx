@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { lkr, usdLabel } from "@/lib/currency";
+import { FiGift } from "react-icons/fi";
 
 const MEMBER_DISCOUNT = 0.05;
 
@@ -77,125 +78,151 @@ export default function CheckoutPage() {
     }
   };
 
-  const inputCls = "w-full border border-pink-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300";
+  const inputCls = "w-full bg-[#f7f7f7] rounded-none px-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2]";
 
   return (
-    <div className="min-h-screen bg-pink-50 py-12">
-      <div className="max-w-5xl mx-auto px-4">
-        <h1 className="section-title mb-2">Checkout</h1>
-        <p className="section-subtitle">Fill in your details to place your order</p>
+    <div className="min-h-screen bg-white pb-20">
+      {/* Hero */}
+      <section className="py-16 sm:py-20 border-b border-[#333333]/10 mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Checkout</p>
+          <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-wide text-[#333333] mb-4">Complete Your Order</h1>
+          <p className="text-[#333333]/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
+            Please provide your delivery details below to finalize your purchase. 
+            All orders are processed with care and shipped within 1-2 business days.
+          </p>
+        </div>
+      </section>
 
-        <div className="grid md:grid-cols-2 gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Form */}
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
-            <h2 className="font-display text-xl font-bold text-pink-700">
-              Your Details
-              {session && <span className="ml-2 text-xs font-normal text-pink-400">(pre-filled from your account)</span>}
-            </h2>
+          <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-8">
+            <div className="border border-[#333333]/10 p-6 sm:p-8 bg-white rounded-none">
+              <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-2">Details</p>
+              <h2 className="font-display text-2xl font-normal tracking-wide text-[#333333] mb-6 flex items-center gap-2">
+                Your Delivery Information
+                {session && <span className="text-[10px] uppercase tracking-widest font-normal text-[#835a71] bg-pink-50 px-2 py-0.5">(Pre-filled)</span>}
+              </h2>
 
-            {/* Full Name */}
-            <div>
-              <label className="text-sm text-gray-600 font-medium block mb-1">Full Name</label>
-              <input
-                required
-                type="text"
-                placeholder="Jane Doe"
-                value={form.customerName}
-                onChange={(e) => setForm((f) => ({ ...f, customerName: e.target.value }))}
-                className={inputCls}
-              />
-            </div>
+              <div className="space-y-5">
+                {/* Full Name */}
+                <div>
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Full Name</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Jane Doe"
+                    value={form.customerName}
+                    onChange={(e) => setForm((f) => ({ ...f, customerName: e.target.value }))}
+                    className={inputCls}
+                  />
+                </div>
 
-            {/* Phone with country code */}
-            <div>
-              <label className="text-sm text-gray-600 font-medium block mb-1">Phone Number</label>
-              <div className="flex">
-                <select
-                  value={phoneCode}
-                  onChange={(e) => setPhoneCode(e.target.value)}
-                  className="border border-pink-200 border-r-0 rounded-l-xl px-2 py-2.5 text-sm bg-pink-50 text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-300 flex-shrink-0"
-                >
-                  {COUNTRY_CODES.map((c) => (
-                    <option key={c.code} value={c.code}>{c.label}</option>
-                  ))}
-                </select>
-                <input
-                  required
-                  type="tel"
-                  placeholder="71 601 2640"
-                  value={form.phone}
-                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                  className="flex-1 border border-pink-200 rounded-r-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 min-w-0"
-                />
+                {/* Phone with country code */}
+                <div>
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Phone Number</label>
+                  <div className="flex">
+                    <select
+                      value={phoneCode}
+                      onChange={(e) => setPhoneCode(e.target.value)}
+                      className="bg-[#eee] border-r border-white rounded-none px-2 py-3 text-xs tracking-wider text-[#333333] focus:outline-none flex-shrink-0"
+                    >
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={c.code} value={c.code}>{c.label}</option>
+                      ))}
+                    </select>
+                    <input
+                      required
+                      type="tel"
+                      placeholder="71 601 2640"
+                      value={form.phone}
+                      onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                      className="flex-1 bg-[#f7f7f7] rounded-none px-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2] min-w-0"
+                    />
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div>
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Delivery Address</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="123 Main St, City, Country"
+                    value={form.address}
+                    onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
+                    className={inputCls}
+                  />
+                </div>
+
+                {/* Notes */}
+                <div>
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Order Notes (optional)</label>
+                  <textarea
+                    rows={4}
+                    value={form.notes}
+                    onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+                    className="w-full bg-[#f7f7f7] rounded-none px-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2] resize-none"
+                    placeholder="Any special requests or delivery instructions?"
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Address */}
-            <div>
-              <label className="text-sm text-gray-600 font-medium block mb-1">Delivery Address</label>
-              <input
-                required
-                type="text"
-                placeholder="123 Main St, City, Country"
-                value={form.address}
-                onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
-                className={inputCls}
-              />
+              <button type="submit" disabled={loading || items.length === 0} className="btn-primary w-full mt-8 disabled:opacity-60">
+                {loading ? "Processing Order..." : "Place Your Order"}
+              </button>
+              <p className="text-[11px] text-[#333333]/50 text-center mt-4 tracking-wide uppercase">
+                By placing an order, you agree to our <Link href="/terms" className="underline hover:text-[#835a71]">Terms of Service</Link>
+              </p>
             </div>
-
-            {/* Notes */}
-            <div>
-              <label className="text-sm text-gray-600 font-medium block mb-1">Order Notes (optional)</label>
-              <textarea
-                rows={3}
-                value={form.notes}
-                onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
-                className="w-full border border-pink-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 resize-none"
-                placeholder="Any special requests?"
-              />
-            </div>
-
-            <button type="submit" disabled={loading || items.length === 0} className="btn-primary w-full mt-2">
-              {loading ? "Placing Order..." : "Place Order"}
-            </button>
           </form>
 
           {/* Order Summary */}
-          <div className="space-y-4">
+          <div className="lg:col-span-5 space-y-6">
             {/* Guest discount banner */}
             {!session && (
-              <div className="bg-pink-50 border border-pink-200 rounded-2xl px-4 py-3 flex items-center gap-3">
-                <span className="text-2xl">🎁</span>
-                <p className="text-sm text-pink-700">
-                  <Link href="/auth/login" className="font-bold underline hover:text-pink-900">Sign in</Link>{" "}
-                  to get <span className="font-bold">5% off</span> your order
-                </p>
+              <div className="border border-[#333333]/10 bg-[#f8f8f8] p-5 flex items-center gap-4">
+                <div className="w-12 h-12 flex items-center justify-center bg-white text-[#835a71] shrink-0 border border-[#333333]/10">
+                  <FiGift className="text-xl" />
+                </div>
+                <div>
+                  <p className="text-xs tracking-widest uppercase text-[#333333]/60 mb-1">Member Benefit</p>
+                  <p className="text-sm text-[#333333] leading-relaxed">
+                    <Link href="/auth/login" className="font-medium underline hover:text-[#835a71]">Sign in</Link>{" "}
+                    to get <span className="font-bold">5% off</span> your order automatically.
+                  </p>
+                </div>
               </div>
             )}
 
-            <div className="bg-white rounded-2xl p-6 shadow-sm h-fit">
-              <h2 className="font-display text-xl font-bold text-pink-700 mb-4">Order Summary</h2>
+            <div className="border border-[#333333]/10 p-6 sm:p-8 bg-white rounded-none shadow-sm">
+              <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-2">Summary</p>
+              <h2 className="font-display text-2xl font-normal tracking-wide text-[#333333] mb-6">Your Basket</h2>
 
               {items.length === 0 ? (
-                <p className="text-gray-400 text-sm">No items in cart</p>
+                <div className="py-12 text-center text-[#333333]/40">
+                  <p className="text-sm">Your basket is empty</p>
+                  <Link href="/shop" className="text-xs uppercase tracking-widest underline mt-4 block">Return to shop</Link>
+                </div>
               ) : (
                 <>
-                  <div className="space-y-3 mb-4">
+                  <div className="space-y-4 mb-8">
                     {items.map(({ product, quantity }) => (
-                      <div key={product.id} className="flex items-center gap-3">
-                        <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-pink-50 flex-shrink-0">
+                      <div key={product.id} className="flex items-center gap-4">
+                        <div className="relative w-16 h-16 rounded-none overflow-hidden bg-[#f7f7f7] flex-shrink-0 border border-[#333333]/5">
                           {product.image ? (
-                            <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="48px" />
+                            <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="64px" />
                           ) : (
-                            <span className="flex items-center justify-center h-full text-xl">🌸</span>
+                            <span className="flex items-center justify-center h-full text-2xl">🌸</span>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-800 truncate">{product.name}</p>
-                          <p className="text-xs text-pink-400">Qty: {quantity}</p>
+                          <p className="text-sm font-medium text-[#333333] truncate tracking-wide">{product.name}</p>
+                          <p className="text-xs text-[#333333]/50 font-light mt-0.5">Quantity: {quantity}</p>
                         </div>
                         {product.price && (
-                          <p className="text-sm font-bold text-pink-600">
+                          <p className="text-sm font-normal text-[#333333]">
                             {lkr(product.price * quantity)}
                           </p>
                         )}
@@ -203,22 +230,22 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  <div className="border-t border-pink-100 pt-3 space-y-1.5">
-                    <div className="flex justify-between text-sm text-gray-500">
+                  <div className="border-t border-[#333333]/10 pt-6 space-y-3">
+                    <div className="flex justify-between text-xs tracking-widest uppercase text-[#333333]/60">
                       <span>Subtotal</span>
-                      <span>{lkr(subtotal)}</span>
+                      <span className="font-medium text-[#333333]">{lkr(subtotal)}</span>
                     </div>
                     {session && discountAmount > 0 && (
-                      <div className="flex justify-between text-sm text-green-600 font-medium">
-                        <span>✦ Member discount (5%)</span>
-                        <span>−{lkr(discountAmount)}</span>
+                      <div className="flex justify-between text-xs tracking-widest uppercase text-[#835a71]">
+                        <span>Member discount (5%)</span>
+                        <span className="font-medium">−{lkr(discountAmount)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between font-bold text-pink-700 text-base pt-1 border-t border-pink-50">
-                      <span>Total</span>
+                    <div className="flex justify-between items-baseline pt-4 border-t border-[#333333]/10 mt-4">
+                      <span className="font-display text-lg font-normal tracking-wide text-[#333333]">Total</span>
                       <div className="text-right">
-                        <p>{lkr(total)}</p>
-                        <p className="text-xs text-gray-400 font-normal">{usdLabel(total)} USD</p>
+                        <p className="font-display text-2xl text-[#333333]">{lkr(total)}</p>
+                        <p className="text-xs text-[#333333]/40 font-light mt-1">{usdLabel(total)} USD</p>
                       </div>
                     </div>
                   </div>

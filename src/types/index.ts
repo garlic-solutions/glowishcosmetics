@@ -4,9 +4,16 @@ export interface ProductImage {
   height?: number;
 }
 
+export interface Brand {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
+  slug: string;
   code: string;
   description?: { html: string };
   tags: string[];
@@ -14,6 +21,8 @@ export interface Product {
   image?: ProductImage;
   featured?: boolean;
   category?: string;
+  brand?: Brand;
+  gallery?: ProductImage[];
 }
 
 export interface CartItem {
@@ -45,4 +54,28 @@ export interface WebsiteSettings {
   contactPhone?: string;
   contactAddress?: string;
   headerImage?: { url: string };
+  fburl?: string;
+  instaUrl?: string;
+  tiktokUrl?: string;
+}
+
+export interface HeroSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  cta: string;
+  url: string;
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
+}
+export interface Review {
+  id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  userImage?: { url: string };
+  product?: { name: string };
 }
