@@ -1,15 +1,16 @@
 "use client";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState, useCallback, useTransition } from "react";
-import { FiDroplet, FiStar, FiWind, FiFeather, FiFilter, FiX, FiCheck, FiLoader, FiSearch } from "react-icons/fi";
+import { FiDroplet, FiStar, FiWind, FiFeather, FiFilter, FiX, FiCheck, FiLoader, FiSearch, FiHeart } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Brand } from "@/types";
 
 const CATEGORIES = [
-  { apiId: "SkinCare",  label: "Skin Care",  icon: FiDroplet },
-  { apiId: "Fragrance", label: "Fragrance",  icon: FiWind },
-  { apiId: "Hair",      label: "Hair",       icon: FiFeather },
-  { apiId: "Makeup",    label: "Makeup",     icon: FiStar },
+  { apiId: "SkinCare", label: "Skin Care", icon: FiDroplet },
+  { apiId: "Fragrance", label: "Fragrance", icon: FiWind },
+  { apiId: "Hair", label: "Hair", icon: FiFeather },
+  { apiId: "Makeup", label: "Makeup", icon: FiStar },
+  { apiId: "beautySupplement", label: "Beauty Supplement", icon: FiHeart },
 ];
 
 interface Props {
@@ -67,17 +68,16 @@ export function ShopFilters({ activeCategory, activeBrand, brands = [], isPendin
           )}
         </AnimatePresence>
 
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
           {/* Quick category filter chips */}
           <div className="flex flex-wrap gap-2">
             <button
               disabled={isPending}
               onClick={() => updateParams({ category: null })}
-              className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors ${
-                !activeCategory
+              className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors ${!activeCategory
                   ? "bg-[#333333] text-white shadow-sm"
                   : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-gray-50"
-              } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+                } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               All Products
             </button>
@@ -86,11 +86,10 @@ export function ShopFilters({ activeCategory, activeBrand, brands = [], isPendin
                 key={cat.apiId}
                 disabled={isPending}
                 onClick={() => updateParams({ category: cat.apiId })}
-                className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors flex items-center gap-1.5 ${
-                  activeCategory === cat.apiId
+                className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors flex items-center gap-1.5 ${activeCategory === cat.apiId
                     ? "bg-[#333333] text-white shadow-sm"
                     : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-gray-50"
-                } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+                  } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 <cat.icon className="text-base" />
                 {cat.label}
@@ -99,7 +98,7 @@ export function ShopFilters({ activeCategory, activeBrand, brands = [], isPendin
           </div>
 
           {/* Search and Advanced Filter Toggle */}
-          <div className="flex items-center gap-3 w-full lg:w-auto">
+          <div className="flex items-start gap-3 w-full lg:w-auto">
             <div className="relative flex-1 lg:w-72">
               <input
                 type="search"
@@ -151,7 +150,7 @@ export function ShopFilters({ activeCategory, activeBrand, brands = [], isPendin
             >
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
                 <h2 className="font-display text-xl text-[#333333]">Filters</h2>
-                <button 
+                <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 hover:bg-gray-100 transition-colors"
                 >
@@ -168,11 +167,10 @@ export function ShopFilters({ activeCategory, activeBrand, brands = [], isPendin
                       <button
                         key={cat.apiId}
                         onClick={() => updateParams({ category: cat.apiId })}
-                        className={`flex items-center justify-between px-4 py-3 border transition-colors ${
-                          activeCategory === cat.apiId
+                        className={`flex items-center justify-between px-4 py-3 border transition-colors ${activeCategory === cat.apiId
                             ? "border-[#333333] bg-[#333333]/5 text-[#333333]"
                             : "border-gray-100 hover:border-gray-200 text-gray-600"
-                        }`}
+                          }`}
                       >
                         <span className="text-sm">{cat.label}</span>
                         {activeCategory === cat.apiId && <FiCheck className="text-sm" />}

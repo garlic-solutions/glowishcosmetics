@@ -27,7 +27,7 @@ function ShopContent({ allProducts, allBrands }: Props) {
 
   const filtered = useMemo(() => {
     return allProducts.filter((p) => {
-      const matchesCategory = !category || p.category === category;
+      const matchesCategory = !category || p.category?.toLowerCase() === category.toLowerCase();
       const matchesBrand = !brand || p.brand?.slug === brand || p.brand?.name === brand;
       const productPrice = p.price ?? 0;
       const matchesPrice = productPrice >= minPrice && productPrice <= maxPrice;

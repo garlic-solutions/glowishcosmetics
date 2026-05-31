@@ -144,7 +144,7 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
           (function () {
             return false;
           })
-            ["constructor"]("debugger")();
+          ["constructor"]("debugger")();
         } catch (err) {
           // Ignore errors
         }
