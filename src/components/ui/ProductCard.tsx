@@ -9,18 +9,46 @@ import type { Product } from "@/types";
 import { lkr, usdLabel } from "@/lib/currency";
 
 const CATEGORY_LABELS: Record<string, string> = {
+  skincare: "Skin Care",
   SkinCare: "Skin Care",
+  fragrance: "Fragrance",
   Fragrance: "Fragrance",
+  hair: "Hair",
   Hair: "Hair",
+  makeup: "Makeup",
   Makeup: "Makeup",
+  beautysupplement: "Beauty Supplement",
+  beautySupplement: "Beauty Supplement",
+  BeautySupplement: "Beauty Supplement",
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
+  skincare: "bg-[#fff0f5] text-[#333333]",
   SkinCare: "bg-[#fff0f5] text-[#333333]",
+  fragrance: "bg-fuchsia-100 text-fuchsia-600",
   Fragrance: "bg-fuchsia-100 text-fuchsia-600",
+  hair: "bg-purple-100 text-purple-600",
   Hair: "bg-purple-100 text-purple-600",
+  makeup: "bg-[#fff0f5] text-[#333333]",
   Makeup: "bg-[#fff0f5] text-[#333333]",
+  beautysupplement: "bg-rose-100 text-rose-600",
+  beautySupplement: "bg-rose-100 text-rose-600",
+  BeautySupplement: "bg-rose-100 text-rose-600",
 };
+
+function formatCategory(cat: string): string {
+  const normalized = cat.toLowerCase();
+  if (CATEGORY_LABELS[normalized]) return CATEGORY_LABELS[normalized];
+  return cat
+    .replace(/([A-Z])/g, " $1")
+    .trim()
+    .replace(/^./, (str) => str.toUpperCase());
+}
+
+function getCategoryColor(cat: string): string {
+  const normalized = cat.toLowerCase();
+  return CATEGORY_COLORS[normalized] ?? "bg-[#fff0f5] text-[#333333]";
+}
 
 interface Props {
   product: Product;
@@ -38,8 +66,8 @@ export function ProductCard({ product, hideAddToCart }: Props) {
     setQty(1);
   };
 
-  const categoryLabel = product.category ? CATEGORY_LABELS[product.category] ?? product.category : null;
-  const categoryColor = product.category ? CATEGORY_COLORS[product.category] ?? "bg-[#fff0f5] text-[#333333]" : "";
+  const categoryLabel = product.category ? formatCategory(product.category) : null;
+  const categoryColor = product.category ? getCategoryColor(product.category) : "";
 
   return (
     <div className="card group animate-fade-in">

@@ -30,8 +30,9 @@ export function UserMenu() {
           Sign In
         </Link>
         <Link href="/auth/register"
-          className="text-xs font-normal tracking-widest uppercase bg-[#333333] text-white px-4 py-2 rounded-none hover:bg-[#1a1a1a] transition-colors">
-          Join Free
+          className="text-[10px] sm:text-xs font-medium tracking-wider uppercase bg-[#333333] text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-none hover:bg-[#1a1a1a] transition-colors flex items-center justify-center text-center whitespace-nowrap">
+          <span className="sm:hidden">Join</span>
+          <span className="hidden sm:inline">Join Free</span>
         </Link>
       </div>
     );

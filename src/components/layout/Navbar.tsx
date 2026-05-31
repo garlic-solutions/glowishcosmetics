@@ -38,7 +38,7 @@ export function Navbar({ title }: NavbarProps) {
               alt="Glowish Logo" 
               width={140} 
               height={40} 
-              className="h-10 w-auto object-contain"
+              className="h-8 sm:h-10 w-auto object-contain"
               priority
             />
           </Link>
