@@ -49,8 +49,8 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           {categoryLabel && (
             <>
               <span className="text-[8px] opacity-50">/</span>
-              <Link 
-                href={`/shop?category=${product.category}`} 
+              <Link
+                href={`/shop?category=${product.category}`}
                 className="hover:text-[#333333] transition-colors"
               >
                 {categoryLabel}
@@ -64,10 +64,10 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
         <div className="bg-white rounded-none border border-[#333333]/10 shadow-sm overflow-hidden grid md:grid-cols-2 gap-0">
           {/* Image Gallery */}
           <div className="w-full flex">
-            <ProductGallery 
-              thumbnail={product.image} 
-              gallery={product.gallery} 
-              productName={product.name} 
+            <ProductGallery
+              thumbnail={product.image}
+              gallery={product.gallery}
+              productName={product.name}
             />
           </div>
 
@@ -112,7 +112,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
             />
           </div>
         )}
-        
+
         {/* Spacer for bottom bar */}
         <div className="h-24"></div>
       </div>

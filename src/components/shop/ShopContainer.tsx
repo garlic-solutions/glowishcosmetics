@@ -1,5 +1,5 @@
 "use client";
-import { useState, useTransition, useMemo } from "react";
+import { useState, useTransition, useMemo, Suspense } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ShopFilters } from "./ShopFilters";
 import { ProductCard } from "../ui/ProductCard";
@@ -12,7 +12,7 @@ interface Props {
   allBrands: Brand[];
 }
 
-export function ShopContainer({ allProducts, allBrands }: Props) {
+function ShopContent({ allProducts, allBrands }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -85,3 +85,16 @@ export function ShopContainer({ allProducts, allBrands }: Props) {
     </div>
   );
 }
+
+export function ShopContainer(props: Props) {
+  return (
+    <Suspense fallback={
+      <div className="max-w-6xl mx-auto px-4 py-20 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-[#333333]"></div>
+      </div>
+    }>
+      <ShopContent {...props} />
+    </Suspense>
+  );
+}
+

@@ -1,9 +1,8 @@
 import { hygraphClient, hygraphSafeRequest } from "@/lib/hygraph";
 import { GET_ALL_PRODUCTS, GET_ALL_BRANDS } from "@/lib/queries";
-import { ProductCard } from "@/components/ui/ProductCard";
-import { ShopFilters } from "@/components/shop/ShopFilters";
 import type { Product, Brand } from "@/types";
 import { ShopContainer } from "@/components/shop/ShopContainer";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
@@ -42,7 +41,14 @@ export default async function ShopPage() {
         </div>
       </div>
 
-      <ShopContainer allProducts={allProducts} allBrands={allBrands} />
+      <Suspense fallback={
+        <div className="max-w-6xl mx-auto px-4 py-20 flex justify-center items-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-[#333333]"></div>
+        </div>
+      }>
+        <ShopContainer allProducts={allProducts} allBrands={allBrands} />
+      </Suspense>
     </div>
   );
 }
+
