@@ -21,20 +21,80 @@ async function getSettings(): Promise<WebsiteSettings | null> {
   }
 }
 
+export const viewport = {
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   const siteTitle = settings?.title || "Glowish Cosmetics";
+  const siteDescription = "Discover premium, authentic Korean cosmetics imported directly to Sri Lanka. Shop clean, vegan, and glow-inducing makeup and skincare collections crafted for every skin type with reliable delivery across Sri Lanka. Make yourself beautiful.";
+  
+  const baseUrl = process.env.NEXTAUTH_URL 
+    ? (process.env.NEXTAUTH_URL.startsWith("http") ? process.env.NEXTAUTH_URL : `https://${process.env.NEXTAUTH_URL}`)
+    : "http://localhost:3000";
 
   return {
-    title: `${siteTitle} | Beauty That Blooms`,
-    description: "Discover premium Korean cosmetics crafted for every skin type.",
+    title: {
+      default: `${siteTitle} | Make yourself beautiful`,
+      template: `%s | ${siteTitle}`,
+    },
+    description: siteDescription,
+    keywords: [
+      "glowish cosmetics",
+      "korean beauty",
+      "k-beauty",
+      "skincare",
+      "makeup",
+      "fragrance",
+      "vegan cosmetics",
+      "clean beauty",
+      "korean makeup",
+      "korean cosmetics Sri Lanka",
+      "buy korean skincare Sri Lanka",
+      "authentic k-beauty Sri Lanka",
+      "glowish cosmetics Sri Lanka",
+      "korean makeup Sri Lanka",
+      "sri lanka skincare shop",
+    ],
+    authors: [{ name: siteTitle }],
+    creator: siteTitle,
+    publisher: siteTitle,
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: "/",
+    },
     icons: {
-      icon: "/images/favicon.ico",
+      icon: [
+        { url: "/favicon.ico" },
+        { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      ],
+      shortcut: "/favicon.ico",
+      apple: "/images/logo/logo.webp",
     },
     openGraph: {
-      title: siteTitle,
-      description: "Beauty That Blooms",
       type: "website",
+      locale: "en_US",
+      url: baseUrl,
+      title: `${siteTitle} | Make yourself beautiful`,
+      description: siteDescription,
+      siteName: siteTitle,
+      images: [
+        {
+          url: "/images/logo/logo.webp",
+          width: 800,
+          height: 600,
+          alt: `${siteTitle} Logo`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${siteTitle} | Make yourself beautiful`,
+      description: siteDescription,
+      images: ["/images/logo/logo.webp"],
     },
   };
 }

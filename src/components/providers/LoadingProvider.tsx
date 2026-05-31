@@ -107,7 +107,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
 
             {/* Glowing Brand Tagline */}
             <p className="font-display tracking-[0.3em] uppercase text-[10px] text-gray-400 font-semibold animate-pulse mt-2">
-              Beauty That Blooms
+              Make yourself beautiful
             </p>
           </div>
         </div>
