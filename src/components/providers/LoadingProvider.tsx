@@ -104,12 +104,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
                 priority
               />
             </div>
-            
-            {/* Elegant Circular Spinner with Pink Accent */}
-            <div className="relative w-12 h-12 flex items-center justify-center mt-2">
-              <div className="absolute inset-0 rounded-full border-2 border-pink-100"></div>
-              <div className="absolute inset-0 rounded-full border-2 border-t-pink-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
-            </div>
 
             {/* Glowing Brand Tagline */}
             <p className="font-display tracking-[0.3em] uppercase text-[10px] text-gray-400 font-semibold animate-pulse mt-2">
