@@ -1,7 +1,5 @@
 import { hygraphClient, hygraphSafeRequest } from "@/lib/hygraph";
 import { GET_ALL_PRODUCTS, GET_ALL_BRANDS } from "@/lib/queries";
-import { ProductCard } from "@/components/ui/ProductCard";
-import { ShopFilters } from "@/components/shop/ShopFilters";
 import type { Product, Brand } from "@/types";
 import { ShopContainer } from "@/components/shop/ShopContainer";
 import { Suspense } from "react";
