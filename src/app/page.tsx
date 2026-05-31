@@ -47,13 +47,13 @@ export default async function HomePage() {
     getReviews()
   ]);
   const featured = products.filter((p) => p.featured).slice(0, 6);
-  const fallback = products.slice(0, 6);
+
 
   return (
     <>
       <HeroSection slides={heroSlides} />
       <MarqueeStrip />
-      <FeaturedProducts products={featured.length > 0 ? featured : fallback} />
+      {featured.length > 0 && <FeaturedProducts products={featured} />}
       <CategorySection />
       <MarqueeStrip dark />
       <TestimonialsSection reviews={reviews} />

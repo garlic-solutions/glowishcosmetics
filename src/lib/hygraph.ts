@@ -11,14 +11,22 @@ function toApiEndpoint(cdnUrl: string): string {
   return `https://api-${region}.hygraph.com/v2/${projectId}/master`;
 }
 
+// Define dynamic fetch options to prevent Next.js caching from caching GraphQL requests indefinitely
+const fetchOptions = process.env.NODE_ENV === "development"
+  ? { cache: "no-store" as const }
+  : { next: { revalidate: 60 } };
+
 // Public read-only client
-export const hygraphClient = new GraphQLClient(cdnEndpoint);
+export const hygraphClient = new GraphQLClient(cdnEndpoint, {
+  fetch: (input, init) => fetch(input, { ...init, ...fetchOptions }),
+});
 
 // Mutation client
 export const hygraphMutationClient = new GraphQLClient(toApiEndpoint(cdnEndpoint), {
   headers: {
     Authorization: `Bearer ${process.env.HYGRAPH_MUTATION_TOKEN}`,
   },
+  fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
 });
 
 /**

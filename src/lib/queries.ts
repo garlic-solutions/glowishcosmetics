@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 export const GET_ALL_PRODUCTS = gql`
   query GetAllProducts {
-    products(orderBy: createdAt_DESC) {
+    products(orderBy: createdAt_DESC, first: 100) {
       id
       name
       slug
