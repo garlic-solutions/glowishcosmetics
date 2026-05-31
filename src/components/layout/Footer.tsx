@@ -31,7 +31,7 @@ export function Footer({ settings }: FooterProps) {
             />
           </div>
           <p className="text-gray-500 text-sm leading-relaxed">
-            Premium cosmetics crafted with love. Beauty that blooms with every use.
+            Premium Korean cosmetics imported directly to Sri Lanka. Make yourself beautiful.
           </p>
           <div className="flex gap-4 mt-4">
             {socialLinks.map(({ Icon, url }, i) => (
