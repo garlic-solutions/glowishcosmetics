@@ -8,6 +8,8 @@ import { ProductGallery } from "@/components/ui/ProductGallery";
 import { FiTag } from "react-icons/fi";
 import type { Product } from "@/types";
 import { lkr, usdLabel } from "@/lib/currency";
+import type { Metadata } from "next";
+import { cache } from "react";
 
 export async function generateStaticParams() {
   try {
@@ -19,7 +21,7 @@ export async function generateStaticParams() {
   }
 }
 
-async function getProduct(slug: string): Promise<Product | null> {
+const getProduct = cache(async (slug: string): Promise<Product | null> => {
   try {
     const data = await hygraphSafeRequest<{ product: Product }>(GET_PRODUCT_BY_SLUG, { slug });
     return data.product ?? null;
@@ -27,6 +29,45 @@ async function getProduct(slug: string): Promise<Product | null> {
     console.error("Product fetch failed:", err);
     return null;
   }
+});
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const product = await getProduct(params.slug);
+  if (!product) {
+    return {
+      title: "Product Not Found",
+    };
+  }
+
+  const cleanDescription = product.description?.html
+    ? product.description.html.replace(/<[^>]*>/g, "").trim().substring(0, 160)
+    : `Buy ${product.name} at Glowish Cosmetics.`;
+
+  const imageUrl = product.image?.url || "/images/logo/logo.webp";
+
+  return {
+    title: product.name,
+    description: cleanDescription,
+    openGraph: {
+      title: product.name,
+      description: cleanDescription,
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 800,
+          alt: product.name,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description: cleanDescription,
+      images: [imageUrl],
+    },
+  };
 }
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
