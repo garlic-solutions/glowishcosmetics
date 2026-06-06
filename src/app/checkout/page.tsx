@@ -14,10 +14,10 @@ const MEMBER_DISCOUNT = 0.05;
 const COUNTRY_CODES = [
   { code: "+94", label: "🇱🇰 +94" },
   { code: "+91", label: "🇮🇳 +91" },
-  { code: "+1",  label: "🇺🇸 +1"  },
+  { code: "+1", label: "🇺🇸 +1" },
   { code: "+44", label: "🇬🇧 +44" },
   { code: "+61", label: "🇦🇺 +61" },
-  { code: "+971",label: "🇦🇪 +971"},
+  { code: "+971", label: "🇦🇪 +971" },
   { code: "+65", label: "🇸🇬 +65" },
   { code: "+60", label: "🇲🇾 +60" },
 ];
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Checkout</p>
           <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-wide text-[#333333] mb-4">Complete Your Order</h1>
           <p className="text-[#333333]/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
-            Please provide your delivery details below to finalize your purchase. 
+            Please provide your delivery details below to finalize your purchase.
             All orders are processed with care and shipped within 1-2 business days.
           </p>
         </div>

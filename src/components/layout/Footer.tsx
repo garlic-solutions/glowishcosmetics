@@ -74,7 +74,7 @@ export function Footer({ settings }: FooterProps) {
       <div className="border-t border-[#333333]/10 py-8 text-[10px] tracking-widest uppercase text-gray-400">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p>© {new Date().getFullYear()} Glowish Cosmetics. All rights reserved.</p>
-          <p className="md:text-right">Solution by <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#333333] hover:text-[#835a71] transition-colors font-medium">Garlic</a></p>
+          <p className="md:text-right">Solution by <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#333333] hover:text-[#835a71] transition-colors font-medium">Garlic Collective</a></p>
         </div>
       </div>
     </footer>
