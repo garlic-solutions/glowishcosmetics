@@ -24,7 +24,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="py-16 sm:py-20 border-b border-[#333333]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">About Glowish</p>
           <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-wide text-[#333333] mb-4">Rooted in K-Beauty Rituals</h1>
           <p className="text-[#333333]/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -35,7 +35,7 @@ export default function AboutPage() {
       </section>
 
       {/* Content */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-16 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div className="order-2 md:order-1">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Who We Are</p>
           <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-wide text-[#333333] mb-4">Beauty That Feels Intentional</h2>
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       {/* Values */}
       <section className="py-14 sm:py-16 border-t border-[#333333]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="mb-8 sm:mb-10">
             <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Our Values</p>
             <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-wide text-[#333333]">Craft, Care, and Consistency</h2>

@@ -108,8 +108,8 @@ export default function CheckoutSuccessPage() {
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-16">
-        <div className="grid md:grid-cols-12 gap-12 items-start">
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start w-full">
           
           {/* Main Info */}
           <div className="md:col-span-7 space-y-10 order-2 md:order-1">

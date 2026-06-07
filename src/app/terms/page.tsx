@@ -36,7 +36,7 @@ export default function TermsPage() {
     <div className="min-h-screen bg-white pb-20">
       {/* Hero Section */}
       <section className="py-16 sm:py-20 border-b border-[#333333]/10 mb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Legal</p>
           <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-wide text-[#333333] mb-4">Terms of Service</h1>
           <p className="text-[#333333]/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">

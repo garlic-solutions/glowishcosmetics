@@ -3,7 +3,7 @@ import Link from "next/link";
 export function CtaBanner() {
   return (
     <section className="py-10 sm:py-16 bg-[#fff0f5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="relative rounded-none overflow-hidden bg-gradient-to-r from-[#333333] via-[#444444] to-[#333333] px-6 sm:px-8 py-12 sm:py-20 text-center">
           {/* Decorative circles */}
           <div className="absolute -top-12 -left-12 w-40 sm:w-48 h-40 sm:h-48 rounded-full bg-white/10" />

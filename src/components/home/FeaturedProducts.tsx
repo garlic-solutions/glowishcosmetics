@@ -9,7 +9,7 @@ interface Props {
 export function FeaturedProducts({ products }: Props) {
   return (
     <section className="py-12 sm:py-20 bg-[#fff0f5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="flex items-end justify-between mb-8 sm:mb-12">
           <div>
