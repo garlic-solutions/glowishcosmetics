@@ -125,7 +125,7 @@ export default function CheckoutPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Form */}
-          <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-8">
+          <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-8 order-2 lg:order-1">
             <div className="border border-[#333333]/10 p-6 sm:p-8 bg-white rounded-none">
               <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-2">Details</p>
               <h2 className="font-display text-2xl font-normal tracking-wide text-[#333333] mb-6 flex items-center gap-2">
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
           </form>
 
           {/* Order Summary */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-6 order-1 lg:order-2">
             {/* Guest discount banner */}
             {!session && (
               <div className="border border-[#333333]/10 bg-[#f8f8f8] p-5 flex items-center gap-4">

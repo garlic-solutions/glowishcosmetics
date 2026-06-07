@@ -112,7 +112,7 @@ export default function CheckoutSuccessPage() {
         <div className="grid md:grid-cols-12 gap-12 items-start">
           
           {/* Main Info */}
-          <div className="md:col-span-7 space-y-10">
+          <div className="md:col-span-7 space-y-10 order-2 md:order-1">
             {/* Bank Transfer Instructions */}
             {order.paymentMethod === "bank_transfer" && (
               <div className="border border-[#835a71]/30 p-6 sm:p-8 bg-pink-50/20 relative overflow-hidden">
@@ -136,7 +136,7 @@ export default function CheckoutSuccessPage() {
                           <span className="text-[10px] bg-pink-50 text-[#835a71] px-2 py-0.5 uppercase tracking-widest font-semibold">Account {index + 1}</span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 border-t border-[#333333]/5 pt-3">
+                        <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-4 border-t border-[#333333]/5 pt-3">
                           <div>
                             <p className="text-[11px] uppercase tracking-wider text-[#333333]/40">Account Name</p>
                             <p className="text-xs font-medium text-[#333333] mt-0.5">{acc.nameInAccount}</p>
@@ -156,7 +156,7 @@ export default function CheckoutSuccessPage() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-2 border-t border-[#333333]/5 pt-3 text-[11px]">
+                        <div className="flex flex-col gap-3 sm:grid sm:grid-cols-3 sm:gap-2 border-t border-[#333333]/5 pt-3 text-[11px]">
                           <div>
                             <p className="text-[#333333]/40 uppercase tracking-widest">Branch</p>
                             <p className="font-medium text-[#333333]/80 mt-0.5 truncate" title={acc.branch}>{acc.branch}</p>
@@ -264,7 +264,7 @@ export default function CheckoutSuccessPage() {
           </div>
 
           {/* Sidebar Basket Summary */}
-          <div className="md:col-span-5 border border-[#333333]/10 p-6 sm:p-8 bg-white">
+          <div className="md:col-span-5 border border-[#333333]/10 p-6 sm:p-8 bg-white order-1 md:order-2">
             <h2 className="font-display text-2xl font-normal tracking-wide text-[#333333] mb-6 pb-4 border-b border-[#333333]/10">
               Basket Summary
             </h2>
