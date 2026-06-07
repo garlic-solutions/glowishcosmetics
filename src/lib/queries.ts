@@ -124,3 +124,36 @@ export const GET_REVIEWS = gql`
     }
   }
 `;
+
+export const GET_PRODUCTS_BY_IDS = gql`
+  query GetProductsByIds($ids: [ID!]) {
+    products(where: { id_in: $ids }, first: 100) {
+      id
+      name
+      code
+      price
+      image {
+        url
+      }
+    }
+  }
+`;
+
+export const GET_LATEST_ORDER_NUMBER = gql`
+  query GetLatestOrderNumber {
+    orders(stage: DRAFT, where: { orderNumber_not: null }, orderBy: orderNumber_DESC, first: 1) {
+      orderNumber
+    }
+  }
+`;
+
+export const GET_BANK_ACCOUNTS = gql`
+  query GetBankAccounts {
+    websiteSettings(first: 1) {
+      bankAccounts
+      contactPhone
+    }
+  }
+`;
+
+

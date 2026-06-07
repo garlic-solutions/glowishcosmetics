@@ -30,6 +30,16 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface BankAccount {
+  accNumber: string;
+  nameInAccount: string;
+  branch: string;
+  bank: string;
+  branchCode?: string;
+  bankCode?: string;
+  swiftCode?: string;
+}
+
 export interface OrderInput {
   customerName: string;
   phone: string;
@@ -38,6 +48,8 @@ export interface OrderInput {
   productIds: string[];
   customerEmail?: string;
   discountApplied?: number;
+  items?: { productId: string; quantity: number }[];
+  paymentMethod?: string;
 }
 
 export interface Customer {
@@ -57,6 +69,7 @@ export interface WebsiteSettings {
   fburl?: string;
   instaUrl?: string;
   tiktokUrl?: string;
+  bankAccounts?: BankAccount[];
 }
 
 export interface HeroSlide {

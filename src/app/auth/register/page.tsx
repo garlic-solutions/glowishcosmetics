@@ -85,16 +85,16 @@ export default function RegisterPage() {
           <p className="text-[#333333]/60 text-sm tracking-wide">Just your name, email and mobile</p>
         </div>
 
-        {/* Perks banner */}
-        <div className="bg-pink-50 px-4 py-3 mb-6 flex flex-col items-center gap-1 text-center">
-          <FiGift className="text-[#835a71] text-lg" />
-          <p className="text-sm text-[#835a71] font-normal tracking-wide">
-            Create an account and enjoy member-only offers on every order
-          </p>
-        </div>
-
         {/* Card */}
-        <div className="bg-white rounded-none py-8">
+        <div className="bg-white rounded-none p-8">
+          {/* Perks banner */}
+          <div className="bg-pink-50 px-4 py-3 mb-10 flex flex-col items-center gap-1 text-center">
+            <FiGift className="text-[#835a71] text-lg" />
+            <p className="text-sm text-[#835a71] font-normal tracking-wide">
+              Create an account and enjoy member-only offers on every order
+            </p>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name */}
             <div>
@@ -123,7 +123,7 @@ export default function RegisterPage() {
                 <select
                   value={mobileCode}
                   onChange={(e) => setMobileCode(e.target.value)}
-                  className="rounded-none px-2 py-3 text-sm bg-[#efefef] text-[#333333] focus:outline-none focus:bg-[#e9e9e9] flex-shrink-0"
+                  className="bg-[#eee] border-r border-white rounded-none px-2 py-3 text-xs tracking-wider text-[#333333] focus:outline-none flex-shrink-0"
                 >
                   {COUNTRY_CODES.map((c) => (
                     <option key={c.code} value={c.code}>{c.label}</option>
