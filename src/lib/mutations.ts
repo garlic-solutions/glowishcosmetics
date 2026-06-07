@@ -9,6 +9,8 @@ export const CREATE_ORDER = gql`
     $productIds: [ProductWhereUniqueInput!]!
     $customerEmail: String
     $discountApplied: Float
+    $orderNumber: Int
+    $paymentMethod: String
   ) {
     createOrder(
       data: {
@@ -19,12 +21,16 @@ export const CREATE_ORDER = gql`
         orderedProducts: { connect: $productIds }
         customerEmail: $customerEmail
         discountApplied: $discountApplied
+        orderNumber: $orderNumber
+        paymentMethod: $paymentMethod
       }
     ) {
       id
       customerName
       phone
       createdAt
+      orderNumber
+      paymentMethod
     }
   }
 `;

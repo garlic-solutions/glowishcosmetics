@@ -26,8 +26,9 @@ export default function CheckoutPage() {
   const { data: session } = useSession();
   const { items, clearCart } = useCartStore();
   const router = useRouter();
-  const [form, setForm] = useState({ customerName: "", phone: "", address: "", notes: "" });
+  const [form, setForm] = useState({ customerName: "", phone: "", address: "", notes: "", customerEmail: "" });
   const [phoneCode, setPhoneCode] = useState("+94");
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "bank_transfer">("cod");
   const [loading, setLoading] = useState(false);
 
   // Pre-fill from session when it loads
@@ -39,6 +40,7 @@ export default function CheckoutPage() {
         ...f,
         customerName: session.user.name ?? f.customerName,
         phone: match ? match[2] : mobile,
+        customerEmail: session.user.email ?? f.customerEmail,
       }));
       if (match) setPhoneCode(match[1]);
     }
@@ -61,16 +63,42 @@ export default function CheckoutPage() {
           ...form,
           phone: `${phoneCode} ${form.phone}`,
           productIds: items.map((i) => i.product.id),
-          customerEmail: session?.user?.email ?? undefined,
+          items: items.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
+          customerEmail: form.customerEmail || undefined,
           discountApplied: discountAmount > 0 ? MEMBER_DISCOUNT * 100 : undefined,
+          paymentMethod,
         }),
       });
 
       if (!res.ok) throw new Error("Order failed");
 
+      const data = await res.json();
+
+      // Store details for success page
+      const orderSummaryData = {
+        orderNumber: data.orderNumber,
+        orderId: data.orderId,
+        customerName: form.customerName,
+        customerEmail: form.customerEmail,
+        phone: `${phoneCode} ${form.phone}`,
+        address: form.address,
+        paymentMethod,
+        notes: form.notes,
+        total,
+        discountApplied: discountAmount > 0 ? MEMBER_DISCOUNT * 100 : 0,
+        items: items.map((i) => ({
+          name: i.product.name,
+          quantity: i.quantity,
+          price: i.product.price,
+          code: i.product.code,
+          image: i.product.image?.url,
+        })),
+      };
+      localStorage.setItem("latestOrder", JSON.stringify(orderSummaryData));
+
       clearCart();
       toast.success("Order placed successfully! We'll contact you soon.");
-      router.push("/");
+      router.push("/checkout/success");
     } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
@@ -115,6 +143,19 @@ export default function CheckoutPage() {
                     placeholder="Jane Doe"
                     value={form.customerName}
                     onChange={(e) => setForm((f) => ({ ...f, customerName: e.target.value }))}
+                    className={inputCls}
+                  />
+                </div>
+
+                {/* Email Address */}
+                <div>
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-2">Email Address</label>
+                  <input
+                    required
+                    type="email"
+                    placeholder="jane@example.com"
+                    value={form.customerEmail}
+                    onChange={(e) => setForm((f) => ({ ...f, customerEmail: e.target.value }))}
                     className={inputCls}
                   />
                 </div>
@@ -166,6 +207,56 @@ export default function CheckoutPage() {
                     className="w-full bg-[#f7f7f7] rounded-none px-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2] resize-none"
                     placeholder="Any special requests or delivery instructions?"
                   />
+                </div>
+
+                {/* Payment Method */}
+                <div className="border-t border-[#333333]/10 pt-6">
+                  <label className="text-xs font-normal text-[#333333]/70 tracking-widest uppercase block mb-4">Payment Method</label>
+                  <div className="space-y-4">
+                    {/* Cash on Delivery */}
+                    <label className="flex items-start gap-3 p-4 border border-[#333333]/10 cursor-pointer hover:bg-[#fcfbfb] transition-colors">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="cod"
+                        checked={paymentMethod === "cod"}
+                        onChange={() => setPaymentMethod("cod")}
+                        className="mt-1 accent-[#835a71]"
+                      />
+                      <div>
+                        <span className="text-sm font-medium text-[#333333]">Cash on Delivery</span>
+                        <p className="text-xs text-[#333333]/50 font-light mt-1">Pay with cash upon delivery of your items.</p>
+                      </div>
+                    </label>
+
+                    {/* Direct Bank Transfer */}
+                    <label className="flex items-start gap-3 p-4 border border-[#333333]/10 cursor-pointer hover:bg-[#fcfbfb] transition-colors">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="bank_transfer"
+                        checked={paymentMethod === "bank_transfer"}
+                        onChange={() => setPaymentMethod("bank_transfer")}
+                        className="mt-1 accent-[#835a71]"
+                      />
+                      <div>
+                        <span className="text-sm font-medium text-[#333333]">Direct Bank Transfer</span>
+                        <p className="text-xs text-[#333333]/50 font-light mt-1">Transfer funds directly to our bank account.</p>
+                      </div>
+                    </label>
+                  </div>
+
+                  {paymentMethod === "bank_transfer" && (
+                    <div className="mt-4 p-4 bg-pink-50/50 border border-pink-100 text-xs text-[#835a71] leading-relaxed">
+                      Please make your payment directly into our Glowish bank account. Please use your <strong>Order Number</strong> as the payment reference when you receive it. Note that we do not process the order until the payment is cleared in our account.
+                    </div>
+                  )}
+
+                  {items.some((i) => !i.product.price || i.product.price === 0) && (
+                    <div className="mt-4 p-4 bg-amber-50 border border-amber-200 text-xs text-amber-800 leading-relaxed">
+                      ⚠️ <strong>Note:</strong> There is one or more products in your basket with no fixed price set. We will contact you with the final price and invoice for the relevant payment method.
+                    </div>
+                  )}
                 </div>
               </div>
 
