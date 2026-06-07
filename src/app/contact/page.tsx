@@ -42,7 +42,7 @@ export default async function ContactPage() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="py-16 sm:py-20 border-b border-[#333333]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-3">Contact</p>
           <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-wide text-[#333333] mb-4">We Would Love to Hear From You</h1>
           <p className="text-[#333333]/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -51,7 +51,7 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-16 grid lg:grid-cols-12 gap-8 sm:gap-12 items-start">
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
         {/* Info column */}
         <div className="lg:col-span-5 space-y-8">
           <div>

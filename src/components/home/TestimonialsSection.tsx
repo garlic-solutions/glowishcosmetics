@@ -12,7 +12,7 @@ export function TestimonialsSection({ reviews }: TestimonialsSectionProps) {
 
   return (
     <section className="py-12 sm:py-20 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-14">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-semibold mb-2">Reviews</p>
           <h2 className="font-display text-3xl sm:text-4xl font-normal text-[#333333]">

@@ -102,7 +102,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           <span className="text-[#333333] truncate max-w-[150px] sm:max-w-none">{product.name}</span>
         </nav>
 
-        <div className="bg-white rounded-none border border-[#333333]/10 shadow-sm overflow-hidden grid md:grid-cols-2 gap-0">
+        <div className="bg-white rounded-none border border-[#333333]/10 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-0 w-full">
           {/* Image Gallery */}
           <div className="w-full flex">
             <ProductGallery
