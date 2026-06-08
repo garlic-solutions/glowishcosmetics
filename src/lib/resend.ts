@@ -90,9 +90,9 @@ export async function sendOrderEmails({
           <p style="font-size: 13px; color: #555555; margin-bottom: 15px; line-height: 1.5;">
             ${transferMessage}
           </p>
-          <div style="display: flex; flex-direction: column; gap: 15px;">
+          <div>
             ${bankAccounts.map((acc, index) => `
-              <div style="border-top: ${index > 0 ? "1px dashed #e5e5e5" : "none"}; padding-top: ${index > 0 ? "15px" : "0"};">
+              <div style="border-top: ${index > 0 ? "1px dashed #e5e5e5" : "none"}; padding-top: ${index > 0 ? "15px" : "0"}; margin-top: ${index > 0 ? "15px" : "0"};">
                 <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #333333;">
                   <tr><td style="width: 130px; padding: 4px 0; font-weight: 600; color: #666666;">Bank:</td><td style="padding: 4px 0; font-weight: bold;">${acc.bank}</td></tr>
                   <tr><td style="padding: 4px 0; font-weight: 600; color: #666666;">Account Name:</td><td style="padding: 4px 0;">${acc.nameInAccount}</td></tr>
