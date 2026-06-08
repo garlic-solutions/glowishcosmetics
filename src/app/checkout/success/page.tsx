@@ -86,6 +86,93 @@ export default function CheckoutSuccessPage() {
 
   const subtotal = order.items.reduce((sum, item) => sum + (item.price ?? 0) * item.quantity, 0);
 
+  const renderBankTransfer = (isMobile: boolean) => {
+    if (order.paymentMethod !== "bank_transfer") return null;
+    return (
+      <div className={`border border-[#835a71]/30 p-6 sm:p-8 bg-pink-50/20 relative overflow-hidden ${isMobile ? "md:hidden mb-8" : "hidden md:block mb-10"}`}>
+        <div className="absolute top-0 left-0 w-2 h-full bg-[#835a71]" />
+        <h2 className="font-display text-2xl font-normal text-[#835a71] tracking-wide mb-3">Direct Bank Transfer Details</h2>
+        <p className="text-sm text-[#333333]/80 leading-relaxed mb-6 font-light">
+          Please make your payment directly into our bank account. Use your Order Number{" "}
+          <strong className="text-[#835a71]">#{order.orderNumber}</strong> as the payment reference.
+          Note that we will not process or ship the order until the funds have cleared in our account.
+        </p>
+
+        {bankAccounts.length > 0 ? (
+          <div className="space-y-6">
+            {bankAccounts.map((acc, index) => (
+              <div key={index} className="p-4 bg-white border border-[#333333]/10 rounded-none shadow-sm space-y-3">
+                <div className="flex justify-between items-start gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-[#333333]/40 font-semibold">Bank Name</p>
+                    <p className="text-sm font-semibold text-[#333333] mt-0.5">{acc.bank}</p>
+                  </div>
+                  <span className="text-[10px] bg-pink-50 text-[#835a71] px-2 py-0.5 uppercase tracking-widest font-semibold">Account {index + 1}</span>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-4 border-t border-[#333333]/5 pt-3">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wider text-[#333333]/40">Account Name</p>
+                    <p className="text-xs font-medium text-[#333333] mt-0.5">{acc.nameInAccount}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wider text-[#333333]/40">Account Number</p>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="text-sm font-bold text-[#835a71]">{acc.accNumber}</span>
+                      <button
+                        onClick={() => handleCopy(acc.accNumber, index)}
+                        className="text-gray-400 hover:text-[#835a71] transition-colors p-1"
+                        title="Copy Account Number"
+                      >
+                        {copiedIndex === index ? <FiCheck className="text-green-600 text-xs" /> : <FiCopy className="text-xs" />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:grid sm:grid-cols-3 sm:gap-2 border-t border-[#333333]/5 pt-3 text-[11px]">
+                  <div>
+                    <p className="text-[#333333]/40 uppercase tracking-widest">Branch</p>
+                    <p className="font-medium text-[#333333]/80 mt-0.5 truncate" title={acc.branch}>{acc.branch}</p>
+                  </div>
+                  {acc.branchCode && (
+                    <div>
+                      <p className="text-[#333333]/40 uppercase tracking-widest">Branch Code</p>
+                      <p className="font-medium text-[#333333]/80 mt-0.5">{acc.branchCode}</p>
+                    </div>
+                  )}
+                  {acc.swiftCode && (
+                    <div>
+                      <p className="text-[#333333]/40 uppercase tracking-widest">SWIFT</p>
+                      <p className="font-medium text-[#333333]/80 mt-0.5">{acc.swiftCode}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="p-4 bg-white border border-[#333333]/10 rounded-none shadow-sm text-sm text-[#333333]/80 leading-relaxed">
+            We will contact you and share bank account details.
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderOrderTotalNote = (isMobile: boolean) => {
+    if (!order.items.some((i) => !i.price || i.price === 0)) return null;
+    return (
+      <div className={`border border-amber-200 p-6 sm:p-8 bg-amber-50/30 relative overflow-hidden ${isMobile ? "md:hidden mb-8" : "hidden md:block mb-10"}`}>
+        <div className="absolute top-0 left-0 w-2 h-full bg-amber-500" />
+        <h2 className="font-display text-lg font-normal text-amber-800 tracking-wide mb-2">⚠️ Order Total Note</h2>
+        <p className="text-sm text-[#333333]/80 leading-relaxed font-light">
+          There is one or more products in your basket with no fixed price set. We will contact you with the final price and invoice for the relevant payment method.
+        </p>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-white pb-24 font-sans text-[#333333]">
       {/* Banner */}
@@ -109,91 +196,19 @@ export default function CheckoutSuccessPage() {
       </section>
 
       <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 mt-16">
+        {/* Mobile-only section: Bank Transfer & Order Total Note on top of basket summary */}
+        <div className="md:hidden">
+          {renderBankTransfer(true)}
+          {renderOrderTotalNote(true)}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start w-full">
           
           {/* Main Info */}
-          <div className="md:col-span-7 space-y-10 order-2 md:order-1">
-            {/* Bank Transfer Instructions */}
-            {order.paymentMethod === "bank_transfer" && (
-              <div className="border border-[#835a71]/30 p-6 sm:p-8 bg-pink-50/20 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-[#835a71]" />
-                <h2 className="font-display text-2xl font-normal text-[#835a71] tracking-wide mb-3">Direct Bank Transfer Details</h2>
-                <p className="text-sm text-[#333333]/80 leading-relaxed mb-6 font-light">
-                  Please make your payment directly into our bank account. Use your Order Number{" "}
-                  <strong className="text-[#835a71]">#{order.orderNumber}</strong> as the payment reference.
-                  Note that we will not process or ship the order until the funds have cleared in our account.
-                </p>
+          <div className="md:col-span-7 order-2 md:order-1">
+            {renderBankTransfer(false)}
+            {renderOrderTotalNote(false)}
 
-                {bankAccounts.length > 0 ? (
-                  <div className="space-y-6">
-                    {bankAccounts.map((acc, index) => (
-                      <div key={index} className="p-4 bg-white border border-[#333333]/10 rounded-none shadow-sm space-y-3">
-                        <div className="flex justify-between items-start gap-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-[#333333]/40 font-semibold">Bank Name</p>
-                            <p className="text-sm font-semibold text-[#333333] mt-0.5">{acc.bank}</p>
-                          </div>
-                          <span className="text-[10px] bg-pink-50 text-[#835a71] px-2 py-0.5 uppercase tracking-widest font-semibold">Account {index + 1}</span>
-                        </div>
-
-                        <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-4 border-t border-[#333333]/5 pt-3">
-                          <div>
-                            <p className="text-[11px] uppercase tracking-wider text-[#333333]/40">Account Name</p>
-                            <p className="text-xs font-medium text-[#333333] mt-0.5">{acc.nameInAccount}</p>
-                          </div>
-                          <div>
-                            <p className="text-[11px] uppercase tracking-wider text-[#333333]/40">Account Number</p>
-                            <div className="flex items-center gap-1.5 mt-0.5">
-                              <span className="text-sm font-bold text-[#835a71]">{acc.accNumber}</span>
-                              <button
-                                onClick={() => handleCopy(acc.accNumber, index)}
-                                className="text-gray-400 hover:text-[#835a71] transition-colors p-1"
-                                title="Copy Account Number"
-                              >
-                                {copiedIndex === index ? <FiCheck className="text-green-600 text-xs" /> : <FiCopy className="text-xs" />}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col gap-3 sm:grid sm:grid-cols-3 sm:gap-2 border-t border-[#333333]/5 pt-3 text-[11px]">
-                          <div>
-                            <p className="text-[#333333]/40 uppercase tracking-widest">Branch</p>
-                            <p className="font-medium text-[#333333]/80 mt-0.5 truncate" title={acc.branch}>{acc.branch}</p>
-                          </div>
-                          {acc.branchCode && (
-                            <div>
-                              <p className="text-[#333333]/40 uppercase tracking-widest">Branch Code</p>
-                              <p className="font-medium text-[#333333]/80 mt-0.5">{acc.branchCode}</p>
-                            </div>
-                          )}
-                          {acc.swiftCode && (
-                            <div>
-                              <p className="text-[#333333]/40 uppercase tracking-widest">SWIFT</p>
-                              <p className="font-medium text-[#333333]/80 mt-0.5">{acc.swiftCode}</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="p-4 bg-white border border-[#333333]/10 rounded-none shadow-sm text-sm text-[#333333]/80 leading-relaxed">
-                    We will contact you and share bank account details.
-                  </div>
-                )}
-              </div>
-            )}
-
-            {order.items.some((i) => !i.price || i.price === 0) && (
-              <div className="border border-amber-200 p-6 sm:p-8 bg-amber-50/30 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-amber-500" />
-                <h2 className="font-display text-lg font-normal text-amber-800 tracking-wide mb-2">⚠️ Order Total Note</h2>
-                <p className="text-sm text-[#333333]/80 leading-relaxed font-light">
-                  There is one or more products in your basket with no fixed price set. We will contact you with the final price and invoice for the relevant payment method.
-                </p>
-              </div>
-            )}
 
             {/* Delivery & Shipping Info */}
             <div className="border border-[#333333]/10 p-6 sm:p-8 space-y-6">
