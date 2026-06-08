@@ -128,9 +128,13 @@ export default function CheckoutPage() {
           <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-8 order-2 lg:order-1">
             <div className="border border-[#333333]/10 p-6 sm:p-8 bg-white rounded-none">
               <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-2">Details</p>
-              <h2 className="font-display text-2xl font-normal tracking-wide text-[#333333] mb-6 flex items-center gap-2">
+              <h2 className="font-display text-xl sm:text-2xl font-normal tracking-wide text-[#333333] mb-6 flex flex-wrap items-center gap-x-2 gap-y-1.5">
                 Your Delivery Information
-                {session && <span className="text-[10px] uppercase tracking-widest font-normal text-[#835a71] bg-pink-50 px-2 py-0.5">(Pre-filled)</span>}
+                {session && (
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest font-normal text-[#835a71] bg-pink-50 px-1.5 py-0.5 whitespace-nowrap rounded-sm">
+                    (Pre-filled)
+                  </span>
+                )}
               </h2>
 
               <div className="space-y-5">

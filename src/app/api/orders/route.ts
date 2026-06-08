@@ -130,22 +130,25 @@ export async function POST(req: NextRequest) {
 
       console.log("[Orders API] Triggering email sending via Resend to admin:", adminEmail, "and customer:", customerEmail || "none");
       
-      // Fire-and-forget email trigger (don't block the request response)
-      sendOrderEmails({
-        orderId: createOrder.id,
-        orderNumber: createOrder.orderNumber,
-        customerName,
-        customerEmail: customerEmail ?? undefined,
-        phone,
-        address,
-        notes: notes ?? undefined,
-        items: emailItems,
-        discountApplied: discountApplied ?? undefined,
-        adminEmail,
-        paymentMethod: paymentMethod === "bank_transfer" ? "Direct Bank Transfer" : "Cash on Delivery",
-      }).catch((emailErr) => {
-        console.error("[Orders API] Async sendOrderEmails failed:", emailErr);
-      });
+      // Wait for emails to send to prevent serverless function termination before completion
+      try {
+        const emailResult = await sendOrderEmails({
+          orderId: createOrder.id,
+          orderNumber: createOrder.orderNumber,
+          customerName,
+          customerEmail: customerEmail ?? undefined,
+          phone,
+          address,
+          notes: notes ?? undefined,
+          items: emailItems,
+          discountApplied: discountApplied ?? undefined,
+          adminEmail,
+          paymentMethod: paymentMethod === "bank_transfer" ? "Direct Bank Transfer" : "Cash on Delivery",
+        });
+        console.log("[Orders API] Email sending result:", emailResult);
+      } catch (emailErr) {
+        console.error("[Orders API] sendOrderEmails failed:", emailErr);
+      }
 
     } catch (prepErr) {
       console.error("[Orders API] Error during email preparation:", prepErr);
