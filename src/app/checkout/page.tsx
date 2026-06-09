@@ -180,7 +180,7 @@ export default function CheckoutPage() {
                     <input
                       required
                       type="tel"
-                      placeholder="71 601 2640"
+                      placeholder="XX-XXX-XXXX"
                       value={form.phone}
                       onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                       className="flex-1 bg-[#f7f7f7] rounded-none px-4 py-3 text-sm text-[#333333] placeholder:text-[#333333]/40 focus:outline-none focus:bg-[#f2f2f2] min-w-0"
